@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% load myfilters %}
+{% block content %}
+    <h1 class="container fas fa-align-center">
+       {{misol_sharti}} 
+    </h1>
+    {% if txt %}
+        <h2>{{txt}} {{data.0}} </h2>
+    {% else %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                {% for field in fields %}
+                    <th scope="col">{{field}}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for d in data %}
+                <tr>
+                    {% for i in fields|times %}
+                    <td>{{ d|get_itm:i }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+{% endblock content %}
+
+
