@@ -1,11 +1,13 @@
 from django.urls import path
 from .views import show_books
+# from .views_SQL import show_books
 # from .views import
 # registration, registration_send, show_users, show_file, book_add, book_add_send, show_books, show_category
 
 app_name = "catalog"
 urlpatterns = [
-    path("", show_books, name='books'),
+    path("", show_books, name='Queryset'),
+    path("SQL/", show_books, name='SQL'),
 ]
 
 # path('', show_users, name='users'),

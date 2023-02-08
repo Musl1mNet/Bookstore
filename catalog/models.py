@@ -60,7 +60,7 @@ class Book(models.Model):
     ))
     rating_stars = models.IntegerField(default=0)
     rating_count = models.IntegerField(default=0)
-    avialability = models.BooleanField(default=False)
+    availability = models.BooleanField(default=False)
     read = models.IntegerField(default=0)
     reading = models.IntegerField(default=0)
     will_read = models.IntegerField(default=0)

@@ -706,6 +706,7 @@ def show_books(request):
                         """
                 c.execute(query)
                 books = c.fetchall()
+                print(books)
                 sharti = savol[misol - 1]
                 fields = ["Category name", "Avarage book price"]
     else:

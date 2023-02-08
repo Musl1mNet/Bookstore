@@ -6,5 +6,5 @@ register = template.Library()
 def times(number):
     return list(i for i in range(len(number)))
 @register.filter(name='get_itm')
-def get_itm(obj:tuple, num):
+def get_itm(obj, num):
     return obj[num] 

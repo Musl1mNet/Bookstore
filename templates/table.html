@@ -5,27 +5,34 @@
        {{misol_sharti}} 
     </h1>
     {% if txt %}
-        <h2>{{txt}} {{data.0}} </h2>
+        {% for b in data %}
+            <h2>{{txt}}  {{b}}</h2>
+        {% endfor %}
     {% else %}
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                {% for field in fields %}
-                    <th scope="col">{{field}}</th>
-                {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-            {% for d in data %}
-                <tr>
-                    {% for i in fields|times %}
-                    <td>{{ d|get_itm:i }}</td>
-                    {% endfor %}
-                </tr>
+        <table class="table table-striped">
+            {% for book in books %}
+                {% if forloop.first %}
+                <thead>
+                    <tr>
+                        {% for field in book.keys %}
+                            <th scope="col">{{field|capfirst}}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                {% endif %}
+                        <tr>
+                            {% for b in book.values %}
+                            <td>{{ b }}</td>
+                            {% endfor %}
+                        </tr>
+                {% if forloop.last %}
+                </tbody>
+                {% endif %}
             {% endfor %}
-        </tbody>
-    </table>
+        </table>
     {% endif %}
+
 {% endblock content %}
 
 
