@@ -3,7 +3,12 @@ from django.utils.html import format_html
 
 from catalog.forms import BookForm
 
-from .models import Book, Language, Country, Author, Category
+from .models import Book, Language, Country, Author, Category, Publisher
+
+
+@admin.register(Publisher)
+class PublisherAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name']
 
 @admin.action(description="Status: NEW")
 def book_status_new(modeladmin, request, queryset):

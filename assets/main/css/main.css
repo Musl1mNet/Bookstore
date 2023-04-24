@@ -1,0 +1,72 @@
+.btn {
+  --bs-btn-border-radius: 0;
+}
+
+html, body {
+  cursor: default;
+  font-family: "Open Sans", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+  font-family: "Roboto", sans-serif;
+}
+
+.section-header {
+  background-color: rgba(50, 40, 50, 0.05);
+}
+.section-header .header-image,
+.section-header .header-image-border:after {
+  border-radius: 160px 0;
+}
+.section-header .header-image,
+.section-header .header-image-border {
+  max-width: 424px;
+}
+.section-header .header-image-border:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  bottom: -20px;
+  right: -20px;
+  border: 2px solid rgba(0, 0, 0, 0.25);
+}
+.section-header .header-image {
+  z-index: 10;
+  padding-top: 127.8301887%;
+}
+
+.img {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.book-img, .square-img {
+  padding-top: 100%;
+  position: relative;
+}
+.book-img > .img, .square-img > .img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.book-img {
+  padding-top: 125%;
+}
+
+.fs-h {
+  font-size: 50px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+/*# sourceMappingURL=main.css.map */

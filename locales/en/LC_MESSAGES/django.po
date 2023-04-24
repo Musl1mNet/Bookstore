@@ -1,0 +1,241 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-08 20:40+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+
+#: catalog/management/commands/bot.py:23
+msgid ""
+"Salom botimizga xush kelibsiz!\n"
+"Xizmat sifatini yaxshilash uchun sizga kerakli tilni\n"
+"/languages buyrug'i orqali sozlang!"
+msgstr ""
+"Hello, welcome to our bot!\n"
+"The language you need to improve the quality of service\n"
+"Configure via the /languages command!"
+#: catalog/management/commands/bot.py:24
+msgid "Kitob nomini kiriting!"
+msgstr "Enter the name of the book!"
+
+#: catalog/management/commands/bot.py:24
+msgid "Kitobga ta'rif bering!"
+msgstr "Describe the book!"
+
+#: catalog/management/commands/bot.py:25
+msgid "Kitob rasmini jo'nating!"
+msgstr "Send a picture of a book!"
+
+#: catalog/management/commands/bot.py:25
+msgid "Kitob rasmini kiritasizmi?"
+msgstr "Insert book image?"
+
+#: catalog/management/commands/bot.py:26
+msgid "Kitob narxini kiriting!"
+msgstr "Enter the price of the book!"
+
+#: catalog/management/commands/bot.py:26
+msgid "Kitobning statusini tanlang!"
+msgstr "Select the status of the book!"
+
+#: catalog/management/commands/bot.py:27
+msgid "Kitob chop qilingan yilni kiriting!"
+msgstr "Enter the year the book was published!"
+
+#: catalog/management/commands/bot.py:27
+msgid "Chop qilingan yili bormi?"
+msgstr "Is there a year of publication?"
+
+#: catalog/management/commands/bot.py:28
+msgid "Kitob kategoriyasi?"
+msgstr "Book category?"
+
+#: catalog/management/commands/bot.py:28
+msgid "Kitob chop qilingan til?"
+msgstr "Language in which the book is published?"
+
+#: catalog/management/commands/bot.py:29
+msgid "Chop qilingan davlati?"
+msgstr "Country of publication?"
+
+#: catalog/management/commands/bot.py:29
+msgid "Kitob aftorini tanlang!"
+msgstr "Choose a book author!"
+
+#: catalog/management/commands/bot.py:30
+msgid "Yana Avtor qo'shasizmi?"
+msgstr "Add another Author?"
+
+#: catalog/management/commands/bot.py:30
+msgid "Ma'lumotlarni saqlaysizmi?"
+msgstr "Save data?"
+
+#: catalog/management/commands/bot.py:30
+msgid "📁 Ma'lumotlarni saqlash"
+msgstr "📁 Save data"
+
+#: catalog/management/commands/bot.py:31
+msgid ""
+"Ma'lumotlarni muvofaqiyatli to'ldirdingiz!\n"
+"Malumotlarni saqlash uchun pastdagi tugmani bosing!"
+msgstr ""
+"You have successfully entered your details!\n"
+"Click the button below to save your data!"
+#: catalog/management/commands/bot.py:32
+msgid "Muvofaqiyatli!"
+msgstr "Successful!"
+
+#: catalog/management/commands/bot.py:32
+msgid "Kerakli tilni tanlang!"
+msgstr "Choose your language!"
+
+#: catalog/management/commands/bot.py:34
+msgid "Hurmatli foydalanuvchi oldin /start buyrug'ini kiriiting"
+msgstr "Dear user, please enter the command /start before"
+
+#: catalog/management/commands/bot.py:34
+msgid ""
+"Hurmatli foydalanuvchi siz noto'g'ri formatda ma'lumot kirityapsiz iltimos "
+"malumotni to'g'ri kiriting"
+msgstr ""
+"Dear user, you are entering information in the wrong format, please"
+"enter correct information"
+#: catalog/management/commands/bot.py:36
+msgid ""
+"Kitob narxining eng kichik qiymati: 1000\n"
+"Iltimos kattaroq summa kiriting!"
+msgstr ""
+"Minimum book price: 1000\n"
+"Please enter a larger amount!"
+#: catalog/management/commands/bot.py:38
+msgid ""
+"Iltimos harf va belgi aralashtirmasdan\n"
+"Faqat son kiriting! Misol uchun: 23500"
+msgstr ""
+"Please do not mix letters and symbols\n"
+"Just enter a number! For example: 23500"
+
+#: catalog/management/commands/bot.py:40
+msgid ""
+"Iltimos harf va belgi aralashtirmasdan\n"
+"Faqat raqamlar kiriting!"
+msgstr ""
+"Please do not mix letters and symbols\n"
+"Just enter numbers!"
+
+#: catalog/management/commands/bot.py:41
+msgid ""
+"Iltimos yil YYYY formatda kiriting\n"
+"Misol uchun: \n"
+"2020"
+msgstr ""
+"Please enter year in YYYY format\n"
+"For example: 2020"
+
+#: catalog/management/commands/bot.py:42
+msgid ""
+"Siz kiritgan yil hozirgi yildan katta bo'lmasligi kerak!\n"
+"Iltimos qayta urining"
+msgstr ""
+"The year you entered must not be older than the current year!\n"
+"Please try again"
+
+#: catalog/management/commands/bot.py:43
+msgid "Ha"
+msgstr "Yes"
+
+#: catalog/management/commands/bot.py:43
+msgid "Yo'q"
+msgstr "No"
+
+#: catalog/management/commands/bot.py:43
+msgid "Yangi"
+msgstr "New"
+
+#: catalog/management/commands/bot.py:43
+msgid "Qabul qilingan"
+msgstr "Accepted"
+
+#: catalog/management/commands/bot.py:43
+msgid "Inkor qilingan"
+msgstr "Denyed"
+
+#: catalog/management/commands/bot.py:45
+msgid "Kotob ma'lumotlari"
+msgstr "Book information"
+
+#: catalog/management/commands/bot.py:45
+msgid "Kitob nomi"
+msgstr "Book Name"
+
+#: catalog/management/commands/bot.py:46
+msgid "Kitob ta'rifi"
+msgstr "Book Description"
+
+#: catalog/management/commands/bot.py:46
+msgid "Kitob narxi"
+msgstr "Book price"
+
+#: catalog/management/commands/bot.py:47
+msgid "Kitob statusi raqami"
+msgstr "Book status number"
+
+#: catalog/management/commands/bot.py:47
+msgid "Kitob chop qilingan yili"
+msgstr "The year the book was published"
+
+#: catalog/management/commands/bot.py:48
+msgid "Kitob kategoriya"
+msgstr "Book category"
+
+#: catalog/management/commands/bot.py:48
+msgid "Kitob chiqarilgan til"
+msgstr "Language in which the book is published"
+
+#: catalog/management/commands/bot.py:49
+msgid "Kitob chiqarilgan davlat"
+msgstr "Country of publication"
+
+#: catalog/management/commands/bot.py:49
+msgid "Kitob aftorlari"
+msgstr "Book authors"
+
+#: catalog/management/commands/bot.py:50
+msgid "Ko'rsatilgan ma'lumotlarni saqlaysizmi?"
+msgstr "Save the specified information?"
+
+#: catalog/management/commands/bot.py:50
+msgid ""
+"😅 Ma'lumot muvofaqiyatli saqlandi!\n"
+"Yana qo'shishni hohlasangiz\n"
+"/add komondasini ustiga bosing!"
+msgstr ""
+"😅 Data saved successfully!\n"
+"If you want to add more\n"
+"Click on the /add command!"
+#: catalog/management/commands/bot.py:51
+msgid ""
+"🤕 Ma'lumotlar o'chirildi!\n"
+"Yana qo'shishni hohlasangiz\n"
+"/add komondasini ustiga bosing!"
+msgstr ""
+"🤕 Data deleted!\n"
+"If you want to add more\n"
+"Click on the /add command!"
+#: catalog/management/commands/bot.py:51
+msgid "Ko'rsatilmagan"
+msgstr "Not shown"

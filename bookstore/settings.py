@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-#qka89%3v^^9@_w_1(sw8-ca$r7etcslkff6t)+ep7)!kd-62*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware'
 ]
 
 ROOT_URLCONF = 'bookstore.urls'
@@ -77,6 +78,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'bookstore.context_processors.cart',
+                'bookstore.context_processors.url_name',
+                'bookstore.context_processors.categories',
             ],
         },
     },
@@ -120,7 +124,17 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'uz'
+
+LANGUAGES = (
+    ("uz", "O'zbek"),
+    ("ru", "Russian"),
+    ("en", "English"),
+)
+
+LOCALE_PATHS = [
+    BASE_DIR/'locales'
+]
 
 TIME_ZONE = 'Asia/Tashkent'
 
@@ -128,7 +142,7 @@ USE_I18N = True
 
 USE_TZ = False
 
-USE_L10N = True
+USE_L10N = False
 
 USE_THOUSAND_SEPARATOR = False
 
@@ -138,7 +152,7 @@ USE_THOUSAND_SEPARATOR = False
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'static'
 
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
@@ -150,6 +164,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 TELEGRAM_BOT_TOKEN = env('TELEGRAM_BOT_TOKEN')
 CHAT_ID = env("CHAT_ID")
 USER_ROOT = BASE_DIR / "users"
+
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"

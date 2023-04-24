@@ -1,6 +1,16 @@
 from django.db import models
 from django_quill.fields import QuillField
+from django.core.validators import MinValueValidator
+from catalog.decorators import i18n
 
+
+class Publisher(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Nashriyot nomi")
+    logo = models.ImageField(upload_to="publishers/")
+
+    class Meta:
+        verbose_name = "Nashriyot"
+        verbose_name_plural = "Nashriyotlar"
 
 class Author(models.Model):
     name = models.CharField(max_length=45, verbose_name="Muallif ismi")
@@ -10,7 +20,7 @@ class Author(models.Model):
     class Meta:
         verbose_name = "Muallif"
         verbose_name_plural = "Mualliflar"
-
+@i18n
 class Category(models.Model):
     parent = models.ForeignKey("Category", on_delete=models.RESTRICT, default=None, blank=True, null=True, verbose_name="Otasi")
     name = models.CharField(max_length=45, blank=True, null=True, verbose_name="Nomi")
@@ -38,7 +48,7 @@ class Country(models.Model):
     class Meta:
         verbose_name = "Davlat"
         verbose_name_plural = "Davlatlar"
-
+@i18n
 class Book(models.Model):
     STATUS_NEW = 0
     STATUS_PUBLISHED = 1
@@ -48,11 +58,16 @@ class Book(models.Model):
     authors = models.ManyToManyField(Author)
     language = models.ForeignKey(Language, on_delete=models.RESTRICT)
     country = models.ForeignKey(Country, on_delete=models.RESTRICT)
+    publisher = models.ForeignKey(Publisher, default=None, null=True,  blank=True, on_delete=models.RESTRICT)
 
     name = models.CharField(max_length=250)
+
     content = models.TextField()
-    photo = models.ImageField(upload_to="books/")
-    price = models.DecimalField(max_digits=12, decimal_places=2)
+
+    photo = models.ImageField(upload_to="books/", default="default.jpg", blank=True)
+    price = models.DecimalField(max_digits=12, decimal_places=2, validators=[
+        MinValueValidator(1000)
+        ])
     status = models.IntegerField(choices=(
         (STATUS_NEW, "Yangi"),
         (STATUS_PUBLISHED, "Qabul qilingan"),
@@ -65,8 +80,20 @@ class Book(models.Model):
     reading = models.IntegerField(default=0)
     will_read = models.IntegerField(default=0)
     publish_year = models.SmallIntegerField(default=None, blank=True, null=True)
+    show_on_ad_block = models.BooleanField(default=False, db_index=True)
     added_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    @property
+    def short_info(self):
+
+        return self.content[:100]
+
     def __str__(self):
         return f"{self.name} ({self.id})"
+class User(models.Model):
+    telegram_id = models.BigIntegerField(unique=True)
+    first_name = models.CharField(max_length=50, null=True)
+    last_name = models.CharField(max_length=50, null=True)
+    username = models.CharField(max_length=50, null=True)
+    language = models.CharField(max_length=10)

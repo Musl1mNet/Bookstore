@@ -16,23 +16,14 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, register_converter, include
-from django.http.response import HttpResponse
-from datetime import datetime
+from django.urls import path, include
+from django.conf.urls.i18n import i18n_patterns
 
-class DateConverter:
-    regex = 'bd-([0-9]{4})-([0-9]{2})-([0-9]{2})'
-
-    def to_python(self, value):
-        return str(value)
-
-    def to_url(self, value):
-        return str(value)
-register_converter(DateConverter, "date")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("salom/", lambda request: HttpResponse(f"{request.GET.get('q')[::-1]}")),
-    path('diff/<date:q>', lambda request, q: HttpResponse(f"Hozirgi vaqtdan {int((datetime.now() - datetime.strptime(q, 'bd-%Y-%m-%d')).days) // 365} yil {(int((datetime.now() - datetime.strptime(q, 'bd-%Y-%m-%d')).days) % 365) // 30} oy {(int((datetime.now() - datetime.strptime(q, 'bd-%Y-%m-%d')).days) % 365) % 30} kun farqli!")),
-    path('', include('catalog.urls'))
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+urlpatterns += i18n_patterns(
+    path('', include('catalog.urls')),
+)
