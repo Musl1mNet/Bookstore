@@ -30,6 +30,7 @@ def categories(request):
         "categories": result
     }
 
+
 def cart(request):
     try:
         if request.session["items"]:
@@ -48,8 +49,10 @@ def cart(request):
     return {"cart_item": cart_item,
             "cart_items_count": cart_items_count,
             "cart_items_total_price": cart_items_total_price}
+
+
 def url_name(request):
     return {
         "action_path": "{}:{}".format(request.resolver_match.app_name, request.resolver_match.url_name),
-        "url_name":"{}/{}".format(request.resolver_match.app_name, request.resolver_match.url_name)
+        "url_name": "{}/{}".format(request.resolver_match.app_name, request.resolver_match.url_name)
     }

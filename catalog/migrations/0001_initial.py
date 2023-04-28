@@ -47,7 +47,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=250)),
                 ('content', models.TextField()),
-                ('photo', models.ImageField(upload_to='books/')),
+                ('photo', models.ImageField(upload_to='blocks/')),
                 ('price', models.DecimalField(decimal_places=2, max_digits=12)),
                 ('status', models.IntegerField(choices=[(0, 'Yangi'), (1, 'Qabul qilingan'), (2, 'Inkor qilingan')])),
                 ('rating_stars', models.IntegerField(default=0)),

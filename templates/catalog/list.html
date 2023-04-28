@@ -1,0 +1,52 @@
+{% extends 'layouts/base.html' %}
+{% load i18n %}
+{% block content %}
+    <div class="container pt-3">
+        <div class="row g-3">
+            <div class="col-2">
+                {% for row in children %}
+                    <a class="d-block py-1 {% if row.id == cid %} text-primary {% endif %}"
+                       href="{% url "catalog:list" row.slug row.id %}">{{ row.name }}</a>
+                {% endfor %}
+            </div>
+            <div class="col-10 justify-content-center">
+                {% if object_list %}
+                    <div class="row g-3">
+                        {% for row in object_list %}
+                            <div class="col-lg-3 col-6">
+                                {% include 'blocks/book.html' %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% if page_obj %}
+                        {% if page_obj.has_other_pages %}
+                            <div class="btn-group mt-3" role="group" aria-label="Item pagination">
+                                {% if page_obj.has_previous %}
+                                    <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-primary">&laquo;</a>
+                                {% endif %}
+
+                                {% for page_number in page_obj.paginator.page_range %}
+                                    {% if page_obj.number == page_number %}
+                                        <button class="btn btn-outline-primary active">
+                                            <span>{{ page_number }}</span>
+                                        </button>
+                                    {% else %}
+                                        <a href="?page={{ page_number }}" class="btn btn-outline-primary">
+                                            {{ page_number }}
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if page_obj.has_next %}
+                                    <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-primary">&raquo;</a>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    <h5>{% translate "So'rovingiz bo'yicha kitob mavjud emas" %}</h5>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

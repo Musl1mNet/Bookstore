@@ -3,6 +3,7 @@
 }
 
 html, body {
+  height: 100%;
   cursor: default;
   font-family: "Open Sans", sans-serif;
 }

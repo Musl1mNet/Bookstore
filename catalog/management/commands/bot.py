@@ -130,7 +130,7 @@ class Command(BaseCommand):
             file_id = update.message.photo[-1].file_id
             context.user_data["book"].update({"photo": file_id})
             file = await context.bot.get_file(file_id)
-            context.user_data["book"].update({"photo_root": "books/" + file.file_path.split("/")[-1] })
+            context.user_data["book"].update({"photo_root": "blocks/" + file.file_path.split("/")[-1] })
             context.user_data[STATE] = STATE_ADD_PRICE
             await update.message.reply_text(f"""{ADD_QUESTIONS["price"]}""")
 
