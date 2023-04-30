@@ -6,11 +6,12 @@
             <div class="container pb-5">
                 <div class="row flex-lg-row-reverse">
                     <div class="col-lg-5">
-                        <a href="#">
+                        <a href="{% url "catalog:book" ad_books.0.slug ad_books.0.id %}">
                             <div class="header-image-border position-relative">
                                 <div class="header-image position-relative overflow-hidden">
                                     <div class="img position-absolute start-0 end-0 top-0 bottom-0"
-                                         style="background-image: url('{{ ad_books.0.photo.url }}')"></div>
+                                         style="background-image: url('{{ ad_books.0.photo.url }}')">
+                                    </div>
                                 </div>
                             </div>
                         </a>
@@ -20,7 +21,7 @@
                              style="min-height: 100%">
                             <h1>{{ ad_books.0.name }}</h1>
                             <div class="mt-3">{{ ad_books.0.short_info }}</div>
-                            <a href="#" class="btn btn-dark mt-3">
+                            <a href="{% url "catalog:book" ad_books.0.slug ad_books.0.id %}" class="btn btn-dark mt-3">
                                 <i class="bi bi-bag-fill"></i>
                                 Sotib olish
                             </a>
@@ -52,7 +53,7 @@
                 <div class="row g-3">
                     <div class="col-lg-6">
                         <div class="square-img">
-                            <a href="#" class="img"
+                            <a href="{% url "catalog:book" ad_books.1.slug ad_books.1.id %}" class="img"
                                style="background-image: url('{{ ad_books.1.photo.url }}')"></a>
                         </div>
                     </div>
@@ -61,7 +62,7 @@
                             {% for row in ad_book4_6 %}
                                 <div class="col-lg-6 col-md-3 col-6">
                                     <div class="square-img">
-                                        <a href="#" class="img"
+                                        <a href="{% url "catalog:book" row.slug row.id %}" class="img"
                                            style="background-image: url('{{ row.photo.url }}')"></a>
                                     </div>
                                 </div>
@@ -91,7 +92,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
-                        <a href="#">
+                        <a href="{% url "catalog:book" ad_books.6.slug ad_books.6.id %}">
                             <div class="square-img">
                                 <div class="img" style="background-image: url('{{ ad_books.6.photo.url }}')"></div>
                             </div>
@@ -100,10 +101,10 @@
                     <div class="col-lg-6 mt-3 mt-lg-0">
                         <div class="d-flex flex-column justify-content-center align-items-center align-items-lg-start text-white"
                              style="min-height: 100%">
-                            <a href="#" class="text-white">
+                            <a href="{% url "catalog:book" ad_books.6.slug ad_books.6.id %}" class="text-white">
                                 <h2>{{ ad_books.6.name }}</h2></a>
                             <div class="mt-3">{{ ad_books.6.short_info }}</div>
-                            <a href="#" class="btn btn-default bg-white text-black mt-3">
+                            <a href="{% url "catalog:book" ad_books.6.slug ad_books.6.id %}" class="btn btn-default bg-white text-black mt-3">
                                 <i class="bi bi-bag-fill"></i>
                                 Sotib olish
                             </a>

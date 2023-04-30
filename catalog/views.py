@@ -62,15 +62,28 @@ class MainList(ListView):
 
         return super().dispatch(request, *args, **kwargs)
 
-
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
+
+        children = Category.objects.filter(
+            parent_id=None if self.cat_objects is None else self.cat_objects.id).order_by("-id").all()
+
+        if not children:
+            children = Category.objects.filter(parent_id=self.cat_objects.parent_id).order_by("-id").all()
+        context['breadcrumb'] = MainList.category_bc(self.cat_objects)
+        context["children"] = children
+        context['cid'] = None if self.cat_objects is None else self.cat_objects.id
+
+        return context
+
+    @staticmethod
+    def category_bc(object, last_active=False):
         bc = [{
-            "url": resolve_url("catalog:books") if self.cat_objects else None,
+            "url": resolve_url("catalog:books") if object else None,
             "title": _("Barcha kitoblar")
         }]
-        if self.cat_objects:
-            path = self.cat_objects.path.strip('-').split('-')
+        if object:
+            path = object.path.strip('-').split('-')
             path.pop()
 
             parents = list(Category.objects.filter(id__in=path).all())
@@ -83,19 +96,47 @@ class MainList(ListView):
                 })
 
             bc.append({
-                "url": None,
-                "title": self.cat_objects.name
+                "url": resolve_url("catalog:list", object.slug, object.id) if last_active else None,
+                "title": object.name
             })
-        children = Category.objects.filter(parent_id=None if self.cat_objects is None else self.cat_objects.id).order_by("-id").all()
 
-        if not children:
-            children = Category.objects.filter(parent_id=self.cat_objects.parent_id).order_by("-id").all()
-        context['breadcrumb'] = bc
-        context["children"] = children
-        context['cid'] = None if self.cat_objects is None else self.cat_objects.id
+            return bc
 
-        return context
 
 class MainBookView(DetailView):
     model = Book
     template_name = "catalog/book.html"
+
+    def get_queryset(self):
+        if self.queryset:
+            self.queryset.select_related("category").all()
+
+        return Book.objects.select_related("category").all()
+
+    def get_object(self, queryset=None):
+        if not self.object:
+            self.object = super().get_object(queryset=queryset)
+
+        return self.object
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = None
+        obj = self.get_object()
+        if kwargs.get("slug") != obj.slug:
+            return redirect("catalog:book", obj.slug, obj.id, permanent=True)
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        bc = MainList.category_bc(self.object.category, True)
+        bc.append({
+            "url": None,
+            "title": self.object.name
+        })
+        context["breadcrumb"] = bc
+
+        context["similar"] = Book.objects.filter(status=Book.STATUS_PUBLISHED).exclude(id=self.object.id).order_by(
+            "?").all()[:4]
+
+        return context

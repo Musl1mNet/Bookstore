@@ -126,7 +126,7 @@ class Book(models.Model):
 
     @property
     def slug(self):
-        return slugify(self.name)
+        return slugify(self.name, allow_unicode=True)
 
     def __str__(self):
         return f"{self.name} ({self.id})"

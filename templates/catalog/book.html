@@ -1,7 +1,30 @@
 {% extends "layouts/base.html" %}
+{% load i18n %}
 
 {% block content %}
-
-    {{ object.name }}
-
+    <div class="container pt-3">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="square-img">
+                    <div class="img" style="background-image: url('{{ object.photo.url }}')"></div>
+                </div>
+            </div>
+            <div class="col-lg-7 mt-3 mt-lg-0">
+                <h1>{{ object.name }}</h1>
+                <p>{{ object.category.name }}</p>
+                <p>{{ object.price }} so'm</p>
+                <p>{{ object.get_status_display }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <h4>{% translate "O'xshash kitoblar" %}</h4>
+        <div class="row">
+            {% for row in similar %}
+                <div class="col-lg-3 col-6">
+                    {% include 'blocks/book.html' %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

@@ -1,8 +1,8 @@
 <div class="book">
-    <div class="book-img">
-        <a href="#" class="img" style="background-image: url('{{ row.photo.url }}')"></a>
+    <div class="book-img d-block">
+        <a href="{% url "catalog:book" row.slug row.id %}" class="img" style="background-image: url('{{ row.photo.url }}')"></a>
     </div>
-    <a href="#" class="mt-3 text-dark text-decoration-none d-block ">{{ row.name }}</a>
+    <a href="{% url "catalog:book" row.slug row.id %}" class="mt-3 text-dark text-decoration-none d-block ">{{ row.name }}</a>
     <div class="d-flex my-2">
         <div class="text-muted">{{ row.category.name }}</div>
         <div class="ms-auto">{{ row.price }} so'm</div>
