@@ -1,0 +1,27 @@
+{% extends "layouts/base.html" %}
+
+{% load i18n crispy_forms_filters %}
+
+{% block content %}
+    <div class="container">
+        {% if books %}
+            <div class="row">
+                <div class="col-lg-8">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit" class="btn btn-outline-primary">{% translate "Sotib olish" %}</button>
+                    </form>
+                </div>
+                <div class="col-lg-4">
+                    {% for row in books %}
+                        <div>{{ row.name }}: {{ row.in_cart }} * {{ row.price }} = {{ row.total_price }} </div>
+                    {% endfor %}
+                    <strong>{% translate "Jami" %}: {{ total_price }} {% translate "so'm" %}</strong>
+                </div>
+            </div>
+        {% else %}
+            <h1>{% translate "Karzina bo'sh" %}</h1>
+        {% endif %}
+    </div>
+{% endblock %}

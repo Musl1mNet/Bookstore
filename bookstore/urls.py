@@ -26,4 +26,5 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     path('', include('catalog.urls')),
+    path('order/', include('order.urls')),
 )

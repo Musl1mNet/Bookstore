@@ -1,5 +1,5 @@
 {% extends "layouts/base.html" %}
-{% load i18n %}
+{% load i18n cart %}
 
 {% block content %}
     <div class="container pt-3">
@@ -14,8 +14,24 @@
                 <p>{{ object.category.name }}</p>
                 <p>{{ object.price }} so'm</p>
                 <p>{{ object.get_status_display }}</p>
+                <div class="d-flex">
+                    <div class="me-2">{% translate "karzinaga qo'shish" %}</div>
+                    {% if object|in_cart:request %}
+                        <a class="me-2" href="{% url "order:dec" object.id %}?to={{ request.path }}">
+                            -
+                        </a>
+                        <div class="me-2">{{ object|in_cart:request }}</div>
+                        <a href="{% url "order:inc" object.id %}?to={{ request.path }}">
+                            +
+                        </a>
+                    {% else %}
+                        <a href="{% url "order:inc" object.id %}?to={{ request.path }}">
+                            <i class="bi bi-bag-fill"></i>
+                        </a>
+                    {% endif %}</div>
+                </div>
             </div>
-        </div>
+
     </div>
     <div class="container mt-4">
         <h4>{% translate "O'xshash kitoblar" %}</h4>

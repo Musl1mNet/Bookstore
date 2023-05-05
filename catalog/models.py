@@ -117,6 +117,9 @@ class Book(models.Model):
     will_read = models.IntegerField(default=0)
     publish_year = models.SmallIntegerField(default=None, blank=True, null=True)
     show_on_ad_block = models.BooleanField(default=False, db_index=True)
+    available = models.IntegerField(default=0, validators=[
+        MinValueValidator(0)
+    ])
     added_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

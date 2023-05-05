@@ -1,9 +1,15 @@
 from typing import Optional
 
-from django.db import models
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import redirect, resolve_url
-from django.views.generic import TemplateView, ListView, DetailView
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, FormView
 from django.utils.translation import gettext_lazy as _
+
+from catalog.forms import RegistrationForm, LoginForm
 from catalog.models import Book, Publisher, Category
 
 
@@ -140,3 +146,52 @@ class MainBookView(DetailView):
             "?").all()[:4]
 
         return context
+
+
+class RegistrationView(CreateView):
+    model = User
+    form_class = RegistrationForm
+    template_name = "user/registration.html"
+    success_url = "catalog:login"
+
+    def form_valid(self, form):
+
+        user = form.save(commit=False)
+
+        user.set_password(form.cleaned_data['password'])
+        user.save()
+        return redirect("catalog:login")
+    def get_context_data(self, **kwargs):
+        self.request.title = "Ro'yxatdan o'tish"
+        return super().get_context_data(**kwargs)
+
+class LoginView(FormView):
+    form_class = LoginForm
+    template_name = "user/login.html"
+    success_url = "catalog:index"
+    def form_valid(self, form):
+        username = form.cleaned_data["username"]
+        password = form.cleaned_data["password"]
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            login(self.request, user)
+            return redirect("catalog:index")
+        return super().form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        self.request.title = "Tizimga kirish"
+        return super().get_context_data(**kwargs)
+
+@method_decorator(login_required, name='dispatch')
+class UserInfoView(TemplateView):
+    template_name = "user/myinfo.html"
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs)
+
+@login_required
+def logout_view(request):
+    logout(request)
+
+    return redirect("catalog:index")
+    

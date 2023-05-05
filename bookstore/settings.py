@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django_quill',
 
     'catalog',
+    'order',
 ]
 
 MIDDLEWARE = [
@@ -142,9 +143,9 @@ USE_I18N = True
 
 USE_TZ = False
 
-USE_L10N = False
+USE_L10N = True
 
-USE_THOUSAND_SEPARATOR = False
+USE_THOUSAND_SEPARATOR = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/

@@ -45,7 +45,7 @@ class AuthorAdmin(admin.ModelAdmin):
 class BookAdmin(admin.ModelAdmin):
     form = BookForm
     actions = [book_status_new, book_status_publish, book_status_reject]
-    list_display = ['id', 'get_status_title','country', 'category', 'name', 'price', 'get_rating_stars', 'updated_at']
+    list_display = ['id', 'get_status_title', 'available','country', 'category', 'name', 'price', 'get_rating_stars', 'updated_at']
     list_filter = ['status', 'country', 'category', 'language']
 
     def get_status_title(self, obj):
