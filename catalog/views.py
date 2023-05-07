@@ -1,5 +1,6 @@
 from typing import Optional
 
+import MySQLdb
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -9,6 +10,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, FormView
 from django.utils.translation import gettext_lazy as _
 
+from catalog.filters import BookFilter
 from catalog.forms import RegistrationForm, LoginForm
 from catalog.models import Book, Publisher, Category
 
@@ -51,12 +53,28 @@ class MainList(ListView):
 
     def get_queryset(self):
         cid = self.kwargs.get("id", None)
-        query = Book.objects.order_by('-id')
+        query = Book.objects.only('id').all()
         if cid is not None:
-            cids = Category.objects.filter(path__contains=f"-{cid}-").only('id')
-            query = query.filter(category_id__in=cids)
+            query = query.filter(category_id=cid)
+        self.filter = f = BookFilter(self.request.GET, queryset=query[:1000])
+        sql, params = f.qs.query.sql_with_params()
+        sql = sql.replace("`catalog_book`.", '')
+        print(sql, params)
 
-        return query
+        db = MySQLdb.connect(host="127.0.0.1", port=9306)
+        cursor = db.cursor()
+        cursor.execute(sql, params)
+
+        rows = cursor.fetchall()
+
+        book_ids = []
+        for row in rows:
+            book_ids.append(row[0])
+        if book_ids:
+            result = Book.objects.filter(id__in=book_ids).all()
+        db.close()
+
+        return result.order_by("-added_at")
 
     def dispatch(self, request, *args, **kwargs):
         cid = kwargs.get("id", None)
@@ -79,6 +97,7 @@ class MainList(ListView):
         context['breadcrumb'] = MainList.category_bc(self.cat_objects)
         context["children"] = children
         context['cid'] = None if self.cat_objects is None else self.cat_objects.id
+        context['filter'] = self.filter
 
         return context
 
@@ -146,6 +165,43 @@ class MainBookView(DetailView):
             "?").all()[:4]
 
         return context
+
+class MainSearchView(TemplateView):
+    template_name = "catalog/search.html"
+
+    def get_context_data(self, **kwargs):
+        result = []
+        q = self.request.GET.get('q', None)
+
+        if q:
+            db = MySQLdb.connect(host="127.0.0.1", port=9306)
+            cursor = db.cursor()
+            query = "SELECT id, weight() FROM catalog_book WHERE MATCH(%s) ORDER BY weight() ASC"
+            cursor.execute(query, (q,))
+
+            rows = cursor.fetchall()
+
+            book_ids = []
+            weights = {}
+            for row in rows:
+                weights[row[0]] = int(row[1])
+                book_ids.append(row[0])
+            if book_ids:
+                result = list(Book.objects.filter(id__in = book_ids).all())
+                result.sort(key=lambda r: weights[r.id])
+            db.close()
+        else:
+            result = list(Book.objects.all())
+        kwargs["result"] = result
+        
+        return super().get_context_data(**kwargs)
+
+
+
+
+
+
+
 
 
 class RegistrationView(CreateView):

@@ -10,6 +10,9 @@ class Publisher(models.Model):
     name = models.CharField(max_length=100, verbose_name="Nashriyot nomi")
     logo = models.ImageField(upload_to="publishers/")
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = "Nashriyot"
         verbose_name_plural = "Nashriyotlar"

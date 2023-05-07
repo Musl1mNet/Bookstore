@@ -1,22 +1,19 @@
-{% extends 'layouts/base.html' %}
-{% load i18n crispy_forms_filters %}
+{% extends "layouts/base.html" %}
+{% load i18n %}
+
 {% block content %}
-    <div class="container pt-3">
-        <div class="row g-3">
-            <div class="col-2">
-                {% for row in children %}
-                    <a class="d-block py-1 {% if row.id == cid %} text-primary {% endif %}"
-                       href="{% url "catalog:list" row.slug row.id %}">{{ row.name }}</a>
-                {% endfor %}
-                <form method="get">
-                    {{ filter.form | crispy }}
-                    <button type="submit" class="btn btn-outline-primary">{% translate "Filtering" %}</button>
-                </form>
+    <div class="container">
+        <form method="get" class="my-4">
+            <div class="input-group">
+                <input name="q" value="{{ request.GET.q }}" class="form-control"
+                       placeholder="{% translate "Search" %}" autocomplete="false"/>
+                <button class="btn btn-outline-primary" type="submit">{% translate "Search" %}</button>
             </div>
-            <div class="col-10 justify-content-center">
-                {% if object_list %}
+        </form>
+        <div class=justify-content-center">
+                {% if result %}
                     <div class="row g-3">
-                        {% for row in object_list %}
+                        {% for row in result %}
                             <div class="col-lg-3 col-6">
                                 {% include 'blocks/book.html' %}
                             </div>
@@ -51,6 +48,5 @@
                     <h5>{% translate "So'rovingiz bo'yicha kitob mavjud emas" %}</h5>
                 {% endif %}
             </div>
-        </div>
     </div>
 {% endblock %}
