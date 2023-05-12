@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django_quill',
     'django_filters',
 
+    'telegrambot',
     'catalog',
     'order',
 ]

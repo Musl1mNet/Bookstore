@@ -1,4 +1,6 @@
+from MySQLdb.constants.FIELD_TYPE import NULL
 from django.db import models
+from django.db.models import F
 from django.utils.text import slugify
 from django_quill.fields import QuillField
 from django.core.validators import MinValueValidator
@@ -33,7 +35,9 @@ class Author(models.Model):
 class Category(models.Model):
     parent = models.ForeignKey("Category", on_delete=models.RESTRICT, default=None, blank=True, null=True,
                                verbose_name="Otasi")
-    name = models.CharField(max_length=45, blank=True, null=True, verbose_name="Nomi")
+    name_uz = models.CharField(max_length=45, default=None, null=True, blank=True, verbose_name="Nomi uz")
+    name_ru = models.CharField(max_length=45, default=None, null=True, blank=True, verbose_name="Nomi ru")
+    name_en = models.CharField(max_length=45, default=None, null=True, blank=True, verbose_name="Nomi en")
 
     path = models.CharField(max_length=50, default='-', db_index=True)
 
@@ -47,10 +51,11 @@ class Category(models.Model):
     def save(
         self, force_insert=False, force_update=False, using=None, update_fields=None, fix=True
     ):
-        ret = super().save(force_insert, force_update, using, update_fields)
-
         if fix:
             Category.fix_path(None, [])
+
+        ret = super().save(force_insert, force_update, using, update_fields)
+        return ret
 
 
     def __str__(self):
@@ -99,9 +104,13 @@ class Book(models.Model):
     country = models.ForeignKey(Country, on_delete=models.RESTRICT)
     publisher = models.ForeignKey(Publisher, default=None, null=True, blank=True, on_delete=models.RESTRICT)
 
-    name = models.CharField(max_length=250)
+    name_uz = models.CharField(max_length=250)
+    name_ru = models.CharField(max_length=250)
+    name_en = models.CharField(max_length=250)
 
-    content = models.TextField()
+    content_uz = QuillField()
+    content_ru = QuillField()
+    content_en = QuillField()
 
     photo = models.ImageField(upload_to="blocks/", default="default.jpg", blank=True)
     price = models.DecimalField(max_digits=12, decimal_places=2, validators=[
@@ -128,7 +137,7 @@ class Book(models.Model):
 
     @property
     def short_info(self):
-        return self.content[:100]
+        return self.content.plain[:100]
 
     @property
     def slug(self):
@@ -137,10 +146,3 @@ class Book(models.Model):
     def __str__(self):
         return f"{self.name} ({self.id})"
 
-
-class User(models.Model):
-    telegram_id = models.BigIntegerField(unique=True)
-    first_name = models.CharField(max_length=50, null=True)
-    last_name = models.CharField(max_length=50, null=True)
-    username = models.CharField(max_length=50, null=True)
-    language = models.CharField(max_length=10)
