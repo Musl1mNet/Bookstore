@@ -44,15 +44,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 
     "crispy_forms",
     "crispy_bootstrap5",
     'django_quill',
     'django_filters',
 
-    'telegrambot',
     'catalog',
     'order',
+    'telegrambot',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -171,3 +173,11 @@ USER_ROOT = BASE_DIR / "users"
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        'rest_framework.renderers.JSONRenderer',
+        'api.renderers.OwnRenderer'
+    ]
+}
