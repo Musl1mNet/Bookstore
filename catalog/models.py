@@ -112,7 +112,7 @@ class Book(models.Model):
     content_ru = QuillField()
     content_en = QuillField()
 
-    photo = models.ImageField(upload_to="blocks/", default="default.jpg", blank=True)
+    photo = models.ImageField(upload_to="blocks/")
     price = models.DecimalField(max_digits=12, decimal_places=2, validators=[
         MinValueValidator(1000)
     ])
